@@ -1,6 +1,6 @@
 import { gColor, pLabel } from './influencerUtils'
 
-// ── helpers ──────────────────────────────────────────────────────
+// ── helpers ──────────────────────────────────────────────────────────
 function rr(ctx, x, y, w, h, r) {
   if (w <= 0 || h <= 0) return
   r = Math.min(r, w / 2, h / 2)
@@ -79,7 +79,7 @@ function drawPill(ctx, text, x, y, accentColor) {
   return pw + 6
 }
 
-// ── main export ──────────────────────────────────────────────────
+// ── main export ──────────────────────────────────────────────────────
 export async function exportInfluencerCard(inf) {
   const W = 1240, H = 860
   const SCALE = 2
@@ -105,17 +105,19 @@ export async function exportInfluencerCard(inf) {
   const ctx = canvas.getContext('2d')
   ctx.scale(SCALE, SCALE)
 
-  // ── BACKGROUND ──────────────────────────────────────────────
+  // ── BACKGROUND ──────────────────────────────────────────────────
+  // Content bg
   ctx.fillStyle = '#FFFFFF'
   ctx.fillRect(0, 0, W, H)
 
+  // Very subtle tinted bg on content side
   const bgGrad = ctx.createLinearGradient(CX, 0, W, H)
   bgGrad.addColorStop(0, '#FAFAFA')
   bgGrad.addColorStop(1, '#F4F4F8')
   ctx.fillStyle = bgGrad
   ctx.fillRect(CX, 0, W - CX, H)
 
-  // ── IMAGE COLUMN ─────────────────────────────────────────────
+  // ── IMAGE COLUMN ─────────────────────────────────────────────────
   ctx.fillStyle = '#1A1A2E'
   ctx.fillRect(0, 0, IMG_W, H)
 
@@ -191,7 +193,7 @@ export async function exportInfluencerCard(inf) {
     rr(ctx, tx2, H - 170, thumbW, thumbH, 6); ctx.stroke()
   }
 
-  // ── CONTENT AREA ─────────────────────────────────────────────
+  // ── CONTENT AREA ─────────────────────────────────────────────────
   const cx = CX + PAD
 
   // Thin accent bar at very left of content
@@ -201,7 +203,7 @@ export async function exportInfluencerCard(inf) {
   ctx.fillStyle = acBar
   ctx.fillRect(CX, 0, 3, H * 0.6)
 
-  // ── TOP: name + niche ──────────────────────────────────────
+  // ── TOP: name + niche ──────────────────────────────────────────
   let cy = 30
 
   // Niche label above name
@@ -245,11 +247,11 @@ export async function exportInfluencerCard(inf) {
   ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(W - PAD, cy); ctx.stroke()
   cy += 18
 
-  // ── TWO-COLUMN GRID ──────────────────────────────────────────
+  // ── TWO-COLUMN GRID ──────────────────────────────────────────────
   const half = Math.floor(CW / 2) - 14
   const col2x = cx + half + 28
 
-  // ── LEFT: ABOUT ────────────────────────────────────────────
+  // ── LEFT: ABOUT ────────────────────────────────────────────────
   let lcy = cy
   sectionLabel(ctx, 'About', cx, lcy)
   lcy += 14
@@ -293,7 +295,7 @@ export async function exportInfluencerCard(inf) {
     lcy += 12
   }
 
-  // ── RIGHT: PALETTE + VOICE + BRANDS + PILLARS ──────────────
+  // ── RIGHT: PALETTE + VOICE + BRANDS + PILLARS ──────────────────
   let rcy = cy
 
   // Color palette
@@ -355,7 +357,7 @@ export async function exportInfluencerCard(inf) {
     rcy = wrapText(ctx, inf.hobbies, col2x, rcy, half, 17, 2)
   }
 
-  // ── BOTTOM DIVIDER + STATS BAR ──────────────────────────────
+  // ── BOTTOM DIVIDER + STATS BAR ──────────────────────────────────
   const BOTTOM = H - 110
 
   ctx.strokeStyle = '#E5E5EA'; ctx.lineWidth = 1
@@ -425,7 +427,7 @@ export async function exportInfluencerCard(inf) {
     rr(ctx, bx, bcy - 4, 40, 52, 6); ctx.stroke()
   }
 
-  // ── FOOTER ──────────────────────────────────────────────────
+  // ── FOOTER ──────────────────────────────────────────────────────
   const FY = H - 30
   const footGrad = ctx.createLinearGradient(CX, 0, W, 0)
   footGrad.addColorStop(0, acc + '22')
@@ -441,7 +443,7 @@ export async function exportInfluencerCard(inf) {
   ctx.fillText(`Created ${dateStr}`, W - PAD, FY + 19)
   ctx.textAlign = 'left'
 
-  // ── DOWNLOAD ─────────────────────────────────────────────────
+  // ── DOWNLOAD ─────────────────────────────────────────────────────
   try {
     const link = document.createElement('a')
     link.download = `${(inf.name || 'influencer').toLowerCase().replace(/\s+/g, '-')}-media-kit.png`

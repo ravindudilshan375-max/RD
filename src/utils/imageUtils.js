@@ -2,7 +2,7 @@ export function downloadImage(src, filename = 'image.jpg') {
   let href
   let isBlob = false
   if (src.startsWith('data:')) {
-    // Data URL -> convert to blob synchronously
+    // Data URL → convert to blob synchronously
     const arr = src.split(',')
     const mime = arr[0].match(/:(.*?);/)[1]
     const bstr = atob(arr[1])
@@ -14,7 +14,7 @@ export function downloadImage(src, filename = 'image.jpg') {
     // Same-origin path — download attribute works directly
     href = src
   } else {
-    // Cross-origin CDN -> route through proxy to bypass CORS
+    // Cross-origin CDN → route through proxy to bypass CORS
     href = `/api/img-proxy?url=${encodeURIComponent(src)}&name=${encodeURIComponent(filename)}`
   }
   const a = document.createElement('a')

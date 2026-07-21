@@ -401,7 +401,7 @@ try {
   }
 } catch (_) {}
 
-// Step 3: Inject Camila's photos into photo_studio_history (where the Photos tab actually reads from)
+// Step 3: Inject Camila's 11 photos into photo_studio_history (where the Photos tab actually reads from)
 try {
   const CAMILA_PHOTO_URLS = [
     '/camila/photos/p1.png', '/camila/photos/p2.png', '/camila/photos/p3.png',
