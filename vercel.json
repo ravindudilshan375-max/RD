@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/api/hf/:path*", "destination": "/api/hfproxy?__hfpath=:path*" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ]
+}
