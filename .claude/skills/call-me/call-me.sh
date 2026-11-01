@@ -5,7 +5,8 @@
 #   call-me.sh wait <call_id>      # resume polling an existing call; never places a new one
 #
 # Reads BLAND_API_KEY and CALL_ME_PHONE (E.164) from the environment, falling back to the
-# macOS keychain. Optional: CALL_ME_VOICE, CALL_ME_FROM, CALL_ME_TIMEOUT (seconds, default 540),
+# macOS keychain. Optional: CALL_ME_VOICE (default: the user's chosen "Jarvis" voice), CALL_ME_FROM,
+# CALL_ME_TIMEOUT (seconds, default 540),
 # BLAND_TWILIO_KEY (Bland's encrypted_key for the user's own Twilio account).
 # The key is passed to curl on stdin, never on the command line.
 set -euo pipefail
@@ -56,7 +57,7 @@ EOF
 )
   body=$(jq -n \
     --arg phone "$phone" --arg task "$task" --arg q "$question" \
-    --arg voice "${CALL_ME_VOICE:-}" --arg from "${CALL_ME_FROM:-}" '
+    --arg voice "${CALL_ME_VOICE:-324fbf1d-3b6d-4e5e-bdaa-c8b369914bc4}" --arg from "${CALL_ME_FROM:-}" '
     {
       phone_number: $phone,
       task: $task,
