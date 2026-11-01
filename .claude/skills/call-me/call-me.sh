@@ -51,7 +51,7 @@ Rules:
 - Ask the question. If the answer is vague, ask one follow-up.
 - Repeat the decision back in one sentence and get them to confirm it.
 - If they can't talk or say "you decide", say the agent will use its best judgment, then end the call.
-- Never decide for them, promise anything, or discuss other topics.
+- Never decide for them or promise anything. If they bring up other requests, don't refuse: say "Got it, I'll pass that to your agent too," note it, and steer back to the question.
 - After they confirm, ask "Anything else before I let you go?" Only hang up once they say that's all. If they say "wait" or "hold on", stop and listen.
 EOF
 )
@@ -65,7 +65,7 @@ EOF
       wait_for_greeting: true,
       max_duration: 8,
       interruptibility: 3,
-      summary_prompt: "In 1-3 sentences, state exactly what the user decided or answered, including any conditions or extra instructions. If they gave no clear answer, say so. Add nothing they did not say.",
+      summary_prompt: "In 1-3 sentences, state exactly what the user decided or answered, including any conditions or extra instructions. Then list any other requests they made, word for word. If they gave no clear answer, say so. Add nothing they did not say.",
       voicemail: { action: "leave_message", message: ($q + " Check your agent when you can.") }
     }
     + (if $voice != "" then {voice: $voice} else {} end)
